@@ -1,0 +1,45 @@
+<div class="bg-slate-600 text-center text-white p-4 text-2xl font-bold">
+    To Do List
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3">
+    <div class="column" (dragover)="onDragOver($event)" (drop) = "onDrop($event,'To-Do')">
+      <div class="card-title">Not started ({{filterList('To-Do').length}})</div>
+      <div draggable="true" *ngFor="let task of filterList('To-Do')" class="card" (dragstart) ="onDragStart(task)"
+               (click)="navigate(task)" >{{task.title}}</div>
+      <!-- <div class="card add-card" (click)="addTask($event,'To-Do')" contenteditable="true">+ New</div> -->
+      <div class="flex flex-col">
+        <input  class="card add-card w-full border border-black" (blur)="resetText('todo')"
+        [(ngModel)] = "todoText" placeholder="+ New">
+        <button *ngIf="todoText !== '' " (click)="addTask('To-Do')" class="bg-green-500 text-white p-2" >Add</button>
+        <!-- <p>{{todoText}}</p> -->
+      </div>
+    </div>
+    <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'In-Progress')"> 
+      <div class="card-title">In progress ( {{filterList('In-Progress').length}})</div>
+      <div  draggable="true" *ngFor="let task of filterList('In-Progress')" class="card" (dragstart) ="onDragStart(task)"
+      (click)="navigate(task)" >{{task.title}}</div>
+      <!-- <div class="card add-card" (click)="addTask($event,'In-Progress')" contenteditable="true">+ New</div> -->
+    <div class="flex flex-col">
+      <input  class="card add-card w-full  border border-black" [(ngModel)] = "progText"
+      (blur) ="resetText('progress')" placeholder="+ New">
+<button *ngIf="progText !== '' " (click)="addTask('In-Progress')" class="bg-green-500 text-white p-2">Add</button>
+    </div>
+      <!-- <p>{{progText}}</p> -->
+    </div>
+    <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'Completed')">
+      <div class="card-title">Completed  ({{filterList('Completed').length}})</div>
+      <div  draggable="true" *ngFor="let task of filterList('Completed')" class="card" (dragstart) ="onDragStart(task)"
+      (click)="navigate(task)" >{{task.title}}</div>
+      <!-- <div class="card add-card" (click)="addTask($event,'Completed')" contenteditable="true">+ New</div> -->
+    <div class="flex flex-col">
+      <input class="card add-card w-full  border border-black" (blur)="resetText('completed')"
+      [(ngModel)] = "compText" placeholder="+ New">
+      <button *ngIf="compText !== '' " (click)="addTask('Completed')" class="bg-green-500 text-white p-2">Add</button>
+      <!-- <p>{{compText}}</p> -->
+    </div>
+    </div>
+  </div>
+  
+  <!-- <div>
+    <button (click)="navigate()" >Clicke mE </button>
+  </div> -->

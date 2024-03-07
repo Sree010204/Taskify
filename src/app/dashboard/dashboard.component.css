@@ -36,6 +36,12 @@
     color: #999;
     cursor: pointer;
   }
-  input:active{
+  input:not(:placeholder-shown){
     cursor: text;
+    color: black;
+    outline: .2rem solid rgb(111, 219, 214);
+  }
+
+  button{
+    border-radius: .25rem;
   }
