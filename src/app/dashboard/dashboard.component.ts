@@ -40,7 +40,13 @@ export class DashboardComponent {
 
   ngOnInit(): void {
 
-    localStorage.setItem('taskID',JSON.stringify(this.taskID));
+    if(localStorage.getItem('taskID') === null){
+      localStorage.setItem('taskID',JSON.stringify(this.taskID));
+    }
+    let id = localStorage.getItem('taskID');
+    if(id !== null){
+      this.taskID = JSON.parse(id);
+    }
     console.log(" result heer  ");
     console.log(localStorage.getItem('tasks') === null);
     if(localStorage.getItem('tasks') === null){
