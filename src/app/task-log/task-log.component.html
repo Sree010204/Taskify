@@ -1,0 +1,34 @@
+<div>
+    <div>
+        <app-header></app-header>
+        <h1 class="text-center text-white text-2xl bg-teal-500 p-2">Task Logs</h1>
+    </div>
+    <div class="flex flex-col md:flex-row ">
+        <div class="flex mx-4">
+            <div class="symbol added"></div>
+            <div class="desc">Added Task</div>
+        </div>
+        <div class="flex mx-4">
+            <div class="symbol updated"></div>
+            <div class="desc">Updated Task</div>
+        </div>
+        <div class="flex mx-4">
+            <div class="symbol deleted"></div>
+            <div class="desc">Moved To Bin</div>
+        </div>
+        <div class="flex mx-4">
+            <div class="symbol permDel"></div>
+            <div class="desc">Permanenty Deleted</div>
+        </div>
+        <div class="flex mx-4">
+            <div class="symbol custom"></div>
+            <div class="desc">Custom Status/Feature</div>
+        </div>
+    </div>
+    <div>
+        <div *ngFor="let task of taskLog.slice().reverse()" [ngClass]="getAction(task.action)" class="m-1 shadow-slate-300">
+            <p class="font-semibold">Task ID : {{task.id}}</p>
+            <p>Task <span class="font-semibold">{{task.title }}</span> {{task.message}}</p>
+        </div>
+    </div>
+</div>

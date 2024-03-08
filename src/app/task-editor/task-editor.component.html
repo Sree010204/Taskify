@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="min-h-screen bg-gray-100 flex flex-col m-4">
       <h1 class="text-4xl font-bold mb-4 text-center">Task Editor</h1>
 
@@ -18,7 +19,7 @@
           <!-- Task Description -->
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-            <textarea placeholder="Description" class="w-full h-32 bg-gray-200 rounded px-3 py-2"
+            <textarea placeholder="Description" class="w-full h-48 bg-gray-200 rounded px-3 py-2"
                  [(ngModel)] = "taskDesc"></textarea>
                  <p>{{taskDesc}}</p>
           </div>
@@ -26,7 +27,7 @@
           <!-- Task Status -->
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Status</label>
-            <select class="w-full bg-gray-200 rounded px-3 py-2" [(ngModel)] = "taskStatus" >
+            <select class="w-2/3 bg-gray-200 rounded px-3 py-2" [(ngModel)] = "taskStatus" >
               <option value="To-Do">To-Do</option>
               <option value="In-Progress">In Progress</option>
               <option value="Completed">Completed</option>
@@ -35,10 +36,9 @@
       
           <!-- Update and Delete Buttons -->
           <div class="flex justify-between">
+            <button (click)="navToDashBoard()"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Go To DashBoard</button>
             <button (click)="updateTask()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
-            <button (click)="deleteTask(  )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                   
-                    >Delete</button>
+            <button (click)="deleteTask(  )" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
           </div>
       </div>
 

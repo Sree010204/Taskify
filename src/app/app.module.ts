@@ -16,13 +16,21 @@ import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import {MatIconModule } from '@angular/material/icon';
 import {MatButtonModule } from '@angular/material/button';
 import {MatInputModule } from '@angular/material/input';
-import {MatDialogModule } from '@angular/material/dialog'
+import {MatDialogModule } from '@angular/material/dialog';
+import { HeaderComponent } from './header/header.component';
+import { TaskLogComponent } from './task-log/task-log.component';
+import { BinComponent } from './bin/bin.component';
+import { NewStatusComponent } from './new-status/new-status.component'
 @NgModule({
   declarations: [
     AppComponent,
     TaskEditorComponent,
     DashboardComponent,
-    DialogBoxComponent
+    DialogBoxComponent,
+    HeaderComponent,
+    TaskLogComponent,
+    BinComponent,
+    NewStatusComponent
   ],
   imports: [
     MatIconModule,

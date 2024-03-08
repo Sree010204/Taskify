@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from '../task.interface';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../dialog.service';
-
+import { TaskData } from '../TaskData.interface';
 
 @Component({
   selector: 'app-task-editor',
@@ -18,7 +18,8 @@ export class TaskEditorComponent implements OnInit{
   taskTitle: any = '';
   taskDesc : any = '';
   taskStatus : any = '';
-
+  taskLog : TaskData[] =[];
+  action : string = '';
   constructor(private actRoute:ActivatedRoute,
               private toastr:ToastrService,
               private dialogService:DialogService,
@@ -52,23 +53,50 @@ export class TaskEditorComponent implements OnInit{
     localStorage.setItem('tasks',JSON.stringify(this.taskList));
     let toastMsg  ="Task ID: " +  this.taskID;
     toastMsg += '<br> <b>' + this.taskTitle +"</b> is updated succesfully";
-    this.toastr.success(toastMsg,'Success ',{timeOut:2000,easeTime:500,positionClass:'toast-top-right',enableHtml:true});
+    this.toastr.success(toastMsg,'Success ',{timeOut:3000,easeTime:500,positionClass:'toast-top-right',enableHtml:true});
+    this.addTaskToLogData('updated');
+   
+
   }
 
-  confirmDelete(){
-    
+  navToDashBoard(){
+    this.router.navigate(['/dashboard']);
   }
 
   deleteTask(){
     this.dialogService.openDialogBox().afterClosed().subscribe(response => {
-      console.log(response);
-      if(response){
+
+     console.log(response);
+      if(response == 'true'){
+        
+        // add task to deletedTasks
+        let delTask = this.taskList.find((m)=>m.id == this.taskID);
+        let delTaskList = localStorage.getItem('deletedTasks');
+        if(delTaskList != null){
+          let deletedTasks = JSON.parse(delTaskList);
+          deletedTasks.push(delTask);
+          localStorage.setItem('deletedTasks',JSON.stringify(deletedTasks));
+        }
+        // remove it from current task list
         this.taskList =this.taskList.filter(item => item.id !== this.taskID);
         localStorage.setItem('tasks',JSON.stringify(this.taskList));
-        this.router.navigate(['/dashboard']);
+        this.toastr.error('Task <b>' +this.taskTitle+' </b>Moved To Bin','Task '+this.taskID+' Deleted ',{timeOut:3000,easeTime:500,positionClass:'toast-top-right',enableHtml:true});
+        this.navToDashBoard();
+        this.addTaskToLogData('deleted');
+
       }
-      return false;
     });
+  }
+
+  addTaskToLogData(action:string){
+     // pushing into local storage for task log feature
+     let logData = localStorage.getItem('taskLog');
+     if(logData != null){
+     this.taskLog = JSON.parse(logData);
+     console.log(typeof this.taskLog);
+     this.taskLog.push({id:this.taskID,title:this.taskTitle,message:' is ' + action+" on  "+new Date(),action:action});
+     localStorage.setItem('taskLog',JSON.stringify(this.taskLog));
+     }
   }
   
 }

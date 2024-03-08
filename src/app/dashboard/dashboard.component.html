@@ -1,5 +1,7 @@
-<div class="bg-slate-600 text-center text-white p-4 text-2xl font-bold">
-    To Do List
+<div class="min-h-screen">
+  <app-header></app-header>
+  <div class="bg-slate-600 text-center text-white p-4 text-2xl font-bold">
+    Taskify
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3">
     <div class="column" (dragover)="onDragOver($event)" (drop) = "onDrop($event,'To-Do')">
@@ -14,6 +16,7 @@
         <!-- <p>{{todoText}}</p> -->
       </div>
     </div>
+    
     <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'In-Progress')"> 
       <div class="card-title">In progress ( {{filterList('In-Progress').length}})</div>
       <div  draggable="true" *ngFor="let task of filterList('In-Progress')" class="card" (dragstart) ="onDragStart(task)"
@@ -26,6 +29,7 @@
     </div>
       <!-- <p>{{progText}}</p> -->
     </div>
+    
     <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'Completed')">
       <div class="card-title">Completed  ({{filterList('Completed').length}})</div>
       <div  draggable="true" *ngFor="let task of filterList('Completed')" class="card" (dragstart) ="onDragStart(task)"
@@ -43,3 +47,4 @@
   <!-- <div>
     <button (click)="navigate()" >Clicke mE </button>
   </div> -->
+</div>

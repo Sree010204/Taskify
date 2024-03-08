@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Task } from '../task.interface';
 import { Router } from '@angular/router';
+import { TaskData } from '../TaskData.interface';
+import { Status } from '../Status.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,6 +23,8 @@ export class DashboardComponent {
   todoText:string ='';
   compText : string ='';
   blurTimeOut:any;
+  taskLogData: TaskData[] =[];
+  statusList : Status[] = [];
 
   constructor(private router:Router){
     this.taskList = [
@@ -55,12 +59,16 @@ export class DashboardComponent {
        localStorage.setItem('tasks',tasksJSON);
 
     }
+
+    // get taskList from local storage
     const temp = localStorage.getItem('tasks');
     if(temp != null){
       this.taskList = JSON.parse(temp);
       console.log("not null");
       console.log(this.taskList);
     }
+
+    
 
  }
 resetText(str:string){
@@ -104,9 +112,16 @@ addTask(status:string){
   }
   this.taskList.push({id:this.taskID,title:title,description:'',status:status});
   localStorage.setItem('tasks',JSON.stringify(this.taskList));
+
+  console.log(this.taskList);
+  let logData = localStorage.getItem('taskLog');
+  if(logData){
+    this.taskLogData = JSON.parse(logData);
+    this.taskLogData.push({id:this.taskID,title:title,message:' is added'+new Date(),action:'added'});
+    localStorage.setItem('taskLog',JSON.stringify(this.taskLogData));
+  }
   this.taskID++;
   localStorage.setItem('taskID',JSON.stringify(this.taskID))
-  console.log(this.taskList);
 }
  filterList(status:string){
   // console.log(status);
