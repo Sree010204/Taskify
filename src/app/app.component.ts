@@ -25,11 +25,12 @@ stausList : Status[] = [];
       localStorage.setItem('deletedTasks',JSON.stringify(this.deletedTasks));
     }
     if(localStorage.getItem('statusList') === null){
-      this.stausList.push({id:0,name:'To-Do'});
-      this.stausList.push({id:1,name:'In-Progress'});
-      this.stausList.push({id:2,name:'Completed'});
-      localStorage.setItem('stausList',JSON.stringify(this.stausList));
-      localStorage.setItem('stausID',JSON.stringify('4'));
+      this.stausList.push({id:0,name:'To-Do',description:''});
+      this.stausList.push({id:1,name:'In-Progress',description:''});
+      this.stausList.push({id:2,name:'Completed',description:''});
+      // this.stausList.push({id:4,name:'ReSchedule'});
+      localStorage.setItem('statusList',JSON.stringify(this.stausList));
+      localStorage.setItem('statusID',JSON.stringify('3'));
     }
   }
   

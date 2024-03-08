@@ -4,6 +4,7 @@ import { Task } from '../task.interface';
 import { ToastrService } from 'ngx-toastr';
 import { DialogService } from '../dialog.service';
 import { TaskData } from '../TaskData.interface';
+import { Status } from '../Status.interface';
 
 @Component({
   selector: 'app-task-editor',
@@ -17,9 +18,11 @@ export class TaskEditorComponent implements OnInit{
   tasksJSON :any;
   taskTitle: any = '';
   taskDesc : any = '';
-  taskStatus : any = '';
+  taskStatus : string = '';
   taskLog : TaskData[] =[];
   action : string = '';
+  statusList : Status[] = [];
+
   constructor(private actRoute:ActivatedRoute,
               private toastr:ToastrService,
               private dialogService:DialogService,
@@ -38,9 +41,20 @@ export class TaskEditorComponent implements OnInit{
         this.taskID = t?.id;
         this.taskTitle = t?.title;
         this.taskDesc = t?.description;
+       if(t?.status !== undefined){
         this.taskStatus = t?.status;
+       }
         console.log(this.taskStatus);
       });
+
+      // obtauin all the status from local storage 
+      let statusData = localStorage.getItem('statusList');
+      console.log("ouside loop");
+      if(statusData != null){
+        console.log("inside loop");
+        this.statusList = JSON.parse(statusData);
+       console.log(this.taskStatus);
+      }
   }
 
   updateTask(){
@@ -55,7 +69,7 @@ export class TaskEditorComponent implements OnInit{
     toastMsg += '<br> <b>' + this.taskTitle +"</b> is updated succesfully";
     this.toastr.success(toastMsg,'Success ',{timeOut:3000,easeTime:500,positionClass:'toast-top-right',enableHtml:true});
     this.addTaskToLogData('updated');
-   
+  //  alert(this.statusList.length+" "+localStorage.getItem('stausList')?.length);
 
   }
 

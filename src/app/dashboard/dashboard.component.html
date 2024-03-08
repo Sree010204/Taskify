@@ -4,44 +4,46 @@
     Taskify
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3">
-    <div class="column" (dragover)="onDragOver($event)" (drop) = "onDrop($event,'To-Do')">
-      <div class="card-title">Not started ({{filterList('To-Do').length}})</div>
-      <div draggable="true" *ngFor="let task of filterList('To-Do')" class="card" (dragstart) ="onDragStart(task)"
+   <div  *ngFor="let status of statusList">
+    <div class="column" (dragover)="onDragOver($event)" (drop) = "onDrop($event,status.name)">
+      <div class="card-title"><span>{{status.name+" "}}</span>{{"("+(filterList(status.name).length)+")"}}</div>
+      <div draggable="true" *ngFor="let task of filterList(status.name)" class="card" (dragstart) ="onDragStart(task)"
                (click)="navigate(task)" >{{task.title}}</div>
       <!-- <div class="card add-card" (click)="addTask($event,'To-Do')" contenteditable="true">+ New</div> -->
       <div class="flex flex-col">
         <input  class="card add-card w-full border border-black" (blur)="resetText('todo')"
-        [(ngModel)] = "todoText" placeholder="+ New">
-        <button *ngIf="todoText !== '' " (click)="addTask('To-Do')" class="bg-green-500 text-white p-2" >Add</button>
+        [ngModel]="taskNameMap.get(status.id)" (ngModelChange)="taskNameMap.set(status.id, $event)"placeholder="+ New">
+        <button *ngIf="taskNameMap.get(status.id) !== '' " (click)="addTask(status.id,taskNameMap.get(status.id))" class="bg-green-500 text-white p-2" >Add</button>
         <!-- <p>{{todoText}}</p> -->
       </div>
     </div>
-    
-    <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'In-Progress')"> 
+   </div>
+
+    <!-- <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'In-Progress')"> 
       <div class="card-title">In progress ( {{filterList('In-Progress').length}})</div>
       <div  draggable="true" *ngFor="let task of filterList('In-Progress')" class="card" (dragstart) ="onDragStart(task)"
       (click)="navigate(task)" >{{task.title}}</div>
-      <!-- <div class="card add-card" (click)="addTask($event,'In-Progress')" contenteditable="true">+ New</div> -->
+      <div class="card add-card" (click)="addTask($event,'In-Progress')" contenteditable="true">+ New</div>
     <div class="flex flex-col">
       <input  class="card add-card w-full  border border-black" [(ngModel)] = "progText"
       (blur) ="resetText('progress')" placeholder="+ New">
 <button *ngIf="progText !== '' " (click)="addTask('In-Progress')" class="bg-green-500 text-white p-2">Add</button>
     </div>
-      <!-- <p>{{progText}}</p> -->
-    </div>
+      <p>{{progText}}</p>
+    </div> -->
     
-    <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'Completed')">
+    <!-- <div class="column"  (dragover)="onDragOver($event)" (drop) = "onDrop($event,'Completed')">
       <div class="card-title">Completed  ({{filterList('Completed').length}})</div>
       <div  draggable="true" *ngFor="let task of filterList('Completed')" class="card" (dragstart) ="onDragStart(task)"
       (click)="navigate(task)" >{{task.title}}</div>
-      <!-- <div class="card add-card" (click)="addTask($event,'Completed')" contenteditable="true">+ New</div> -->
+       <div class="card add-card" (click)="addTask($event,'Completed')" contenteditable="true">+ New</div>
     <div class="flex flex-col">
       <input class="card add-card w-full  border border-black" (blur)="resetText('completed')"
       [(ngModel)] = "compText" placeholder="+ New">
       <button *ngIf="compText !== '' " (click)="addTask('Completed')" class="bg-green-500 text-white p-2">Add</button>
-      <!-- <p>{{compText}}</p> -->
+       <p>{{compText}}</p> 
     </div>
-    </div>
+    </div> -->
   </div>
   
   <!-- <div>

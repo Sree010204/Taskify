@@ -25,6 +25,7 @@ export class DashboardComponent {
   blurTimeOut:any;
   taskLogData: TaskData[] =[];
   statusList : Status[] = [];
+  taskNameMap = new Map();
 
   constructor(private router:Router){
     this.taskList = [
@@ -68,7 +69,16 @@ export class DashboardComponent {
       console.log(this.taskList);
     }
 
-    
+    let statusData = localStorage.getItem('statusList');
+    if(statusData !== null){
+      this.statusList = JSON.parse(statusData);
+      console.log("stsua  ");
+      console.log(typeof this.statusList);
+      this.statusList.forEach(status => {
+        this.taskNameMap.set(status.id,"");
+        console.log(status.id+"  "+this.taskNameMap.get(status.id));
+      })
+    }
 
  }
 resetText(str:string){
@@ -87,41 +97,45 @@ resetText(str:string){
   console.log("reset");
 }
 
-addTask(status:string){
+addTask(statusID:number,inputTask :string){
   console.log("fubnc enter");
   // clearTimeout(this.blurTimeOut);
-  let title : string ='';
-  if(status === 'To-Do'){
-    title = this.todoText;
-    this.todoText = '';
-  }
-  else if(status === 'In-Progress'){
-    title = this.progText;
-    this.progText ='';
-  }
-  else if(status === 'Completed'){
-    title = this.compText;
-    this.compText ='';
-  }
-  if(title === null || title.trimStart() === ''){
+  // let taskTitle : any ='';
+  let taskTitle = this.taskNameMap.get(statusID);
+  let status = this.statusList.find((m) => {return m.id == statusID;})?.name;
+  // if(status === 'To-Do'){
+  //   title = this.todoText;
+  //   this.todoText = '';
+  // }
+  // else if(status === 'In-Progress'){
+  //   title = this.progText;
+  //   this.progText ='';
+  // }
+  // else if(status === 'Completed'){
+  //   title = this.compText;
+  //   this.compText ='';
+  // }
+  if(taskTitle === undefined || taskTitle.trimStart() === '' || status == undefined){
     return ;
   }
+  // task id stored in local storage for incrementing it 
   let id = localStorage.getItem('taskID');
   if(id !== null){
     this.taskID = JSON.parse(id);
   }
-  this.taskList.push({id:this.taskID,title:title,description:'',status:status});
+  this.taskList.push({id:this.taskID,title:taskTitle,description:'',status:status});
   localStorage.setItem('tasks',JSON.stringify(this.taskList));
 
   console.log(this.taskList);
   let logData = localStorage.getItem('taskLog');
   if(logData){
     this.taskLogData = JSON.parse(logData);
-    this.taskLogData.push({id:this.taskID,title:title,message:' is added'+new Date(),action:'added'});
+    this.taskLogData.push({id:this.taskID,title:taskTitle,message:' is added'+new Date(),action:'added'});
     localStorage.setItem('taskLog',JSON.stringify(this.taskLogData));
   }
   this.taskID++;
-  localStorage.setItem('taskID',JSON.stringify(this.taskID))
+  localStorage.setItem('taskID',JSON.stringify(this.taskID));
+  this.taskNameMap.set(statusID,'');
 }
  filterList(status:string){
   // console.log(status);
@@ -162,5 +176,7 @@ addTask(status:string){
   this.router.navigate(['/taskeditor'],{queryParams : {data:task.id}});
   console.log("hrllo");
  }
+
+ taskInput(id:any){}
  
 }
