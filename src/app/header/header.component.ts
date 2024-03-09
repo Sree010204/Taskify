@@ -8,14 +8,9 @@ import { Component } from '@angular/core';
 export class HeaderComponent {
 
   isExpanded : boolean = false;
-  isProfileExpanded : boolean = false;
 
 
   toggleMenu(){
     this.isExpanded = !this.isExpanded;
-  }
-
-  toggleProfile(){
-    this.isProfileExpanded = !this.isProfileExpanded
   }
 }

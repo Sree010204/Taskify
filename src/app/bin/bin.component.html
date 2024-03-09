@@ -3,17 +3,23 @@
     <div>
         <h1 class="text-2xl bg-red-300 text-center font-bold">Bin</h1>
     </div>
+    <!-- display bin is empty if no deleted tasks in bin are there -->
+    <div *ngIf="deletedTasks.length == 0" class="text-center">
+      <h1 class="text-6xl font-semibold m-8">Bin is Empty !!!</h1>
+      <h3 class="font-light text-2xl m-4">Deleted Tasks appear here</h3>
+    </div>
     <div>
+      <!-- iterate over deletedTasks and display them  -->
         <div *ngFor="let task of deletedTasks" class="card flex flex-col md:flex-row justify-between">
           <div>
                 <p><span class="caption">Task ID : </span> {{task.id}}</p>
                 <p><span class="caption">Title :</span> {{task.title}}</p>
-                <!-- <p>Description : {{task.description}}</p> -->
-                <!-- <p><span class="caption">Description :</span> {{task.description}}</p> -->
                 <p><span class="caption">Status when deleted: </span>{{task.status}}</p>
           </div>
           <div>
+            <!-- restores task back with it's status at the time of deletion -->
             <button class="restore" (click)="restoreTask(task)">Restore</button>
+            <!-- deletes the task permanently -->
             <button class="delete" (click)="deleteTask(task)">Delete Permanently</button>
           </div>
         </div>

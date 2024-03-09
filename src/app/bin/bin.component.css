@@ -1,3 +1,4 @@
+/* for each task item in bin */
 .card{
     width: 100%;
     background-color: rgb(238, 231, 24);
@@ -17,9 +18,11 @@ button{
 .restore{
     background-color: rgba(22, 118, 3, 0.881);
 }
+
 .delete{
     background-color: rgb(163, 12, 12);
 }
+/* for captoins id,status,message and action */
 .caption{
     font-weight: 600;
 }

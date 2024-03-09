@@ -20,67 +20,78 @@ export class TaskEditorComponent implements OnInit{
   taskDesc : any = '';
   taskStatus : string = '';
   taskLog : TaskData[] =[];
-  action : string = '';
+  action : string = ''; // to store action performed by user if updated or deleted 
   statusList : Status[] = [];
-  userMaessagg : string =  'Save Your Edits Now?';
-  isChanged : boolean = false;
+  userMaessage : string =  'Save Your Edits Now?'; // prompt for user if leaving without saving the work
+  isChanged : boolean = false; // to detect changes through focus attribute
 
   constructor(private actRoute:ActivatedRoute,
               private toastr:ToastrService,
               private dialogService:DialogService,
-              private router:Router){}
+              private router:Router){ }
 
-  ngOnInit(): void {
+  /**
+   * intitalises tha task list to taskList and 
+   * set properties of loaded task into it's corresponding variables 
+   */
+    ngOnInit(): void {
+
+      // set taskList from local storage 
       this.tasksJSON = localStorage.getItem('tasks');
       this.taskList = JSON.parse(this.tasksJSON);
-      console.log(this.taskList);
+  
+     // obtain id of task and set's all its properties to corresponding variables
       this.actRoute.queryParams.subscribe((params : any) => {
-        let t = this.taskList.find((m) => 
+        let t = this.taskList.find((m) => {
         
-        {console.log(m.id+"  "+params.data+"  res  "+(m.id == params.data));
         return m.id == params.data});
-        // console.log(params);
+      
         this.taskID = t?.id;
         this.taskTitle = t?.title;
         this.taskDesc = t?.description;
        if(t?.status !== undefined){
         this.taskStatus = t?.status;
        }
-        console.log(this.taskStatus);
       });
 
       // obtauin all the status from local storage 
       let statusData = localStorage.getItem('statusList');
-      console.log("ouside loop");
       if(statusData != null){
-        console.log("inside loop");
         this.statusList = JSON.parse(statusData);
-       console.log(this.taskStatus);
       }
   }
 
+  /**
+   * updates the task and task logs as well
+   */
   updateTask(){
+
+    // find task that has to be updated and set's the updated properties to it
     let editTask = this.taskList.find((t) => {return t.id == this.taskID;});
     if(editTask !== undefined){
       editTask.title = this.taskTitle
       editTask.description = this.taskDesc;
       editTask.status = this.taskStatus;
     }
+
+    // store the list with updated task in taskList 
     localStorage.setItem('tasks',JSON.stringify(this.taskList));
+
+    // success toast message to display to the user
     let toastMsg  ="Task ID: " +  this.taskID;
     toastMsg += '<br> <b>' + this.taskTitle +"</b> is updated succesfully";
     this.toastr.success(toastMsg,'Success ',{timeOut:3000,easeTime:500,positionClass:'toast-top-right',enableHtml:true});
     this.addTaskToLogData('updated');
-    this.isChanged = false;
-  //  alert(this.statusList.length+" "+localStorage.getItem('stausList')?.length);
 
+    // updates isChanges so that task is not changed immidiatelty after update
+    this.isChanged = false;
   }
 
 
   deleteTask(){
-    this.dialogService.openDialogBox().afterClosed().subscribe(response => {
 
-     console.log(response);
+    // confirm dialog box for confirmation
+    this.dialogService.openDialogBox().afterClosed().subscribe(response => {
       if(response == 'true'){
         
         // add task to deletedTasks
@@ -89,6 +100,8 @@ export class TaskEditorComponent implements OnInit{
         if(delTaskList != null){
           let deletedTasks = JSON.parse(delTaskList);
           deletedTasks.push(delTask);
+          
+          // store the deletedTasks in the local storage
           localStorage.setItem('deletedTasks',JSON.stringify(deletedTasks));
         }
         // remove it from current task list
@@ -107,17 +120,20 @@ export class TaskEditorComponent implements OnInit{
      let logData = localStorage.getItem('taskLog');
      if(logData != null){
      this.taskLog = JSON.parse(logData);
-     console.log(typeof this.taskLog);
+
      this.taskLog.push({id:this.taskID,title:this.taskTitle,status:this.taskStatus,message:' is ' + action+" on  "+this.dialogService.getDateAndTime(),action:action});
      localStorage.setItem('taskLog',JSON.stringify(this.taskLog));
      }
   }
-
+  /**
+   * Navigate to add new status component 
+   */
   navToNewFeature(){
+    //if any changes were made,ask if user wants to save it or not
     if(this.isChanged){
       this.dialogService.openSaveDialog().afterClosed().subscribe(response => {
+        // if yes save it
         if(response == 'true'){
-          // console.log("inside true block");
           this.updateTask();
         }
         this.router.navigate(['/new-status']);
@@ -127,10 +143,14 @@ export class TaskEditorComponent implements OnInit{
       this.router.navigate(['/new-status']);
     }    
   }
-
+  /**
+   * Navigate to dashboard component
+   */
   navToDashBoard(){
+    //if any changes were made,ask if user wants to save it or not
    if(this.isChanged){
     this.dialogService.openSaveDialog().afterClosed().subscribe(response => {
+      // if yes save it
       if(response == 'true'){
         this.updateTask();
       }

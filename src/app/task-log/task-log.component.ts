@@ -11,7 +11,9 @@ export class TaskLogComponent implements OnInit {
 
   taskLog : any;
   constructor(private router:Router){}
-
+  /**
+   * get all the log data from the local storage and initialize into taskLog
+   */
   ngOnInit(): void {
     let logData = localStorage.getItem('taskLog');
     if(logData !== null){ 
@@ -21,6 +23,11 @@ export class TaskLogComponent implements OnInit {
     }
   }
 
+  /**
+   * return specified class for bg color based upon the user action for that task
+   * @param action : denotes user action for that task
+   * @returns class that has to be applied ins string format
+   */
   getAction(action:string){
     switch(action){
       case 'updated' : return 'updated';
