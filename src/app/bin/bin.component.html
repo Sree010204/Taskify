@@ -6,10 +6,11 @@
     <div>
         <div *ngFor="let task of deletedTasks" class="card flex flex-col md:flex-row justify-between">
           <div>
-                <p>Task ID : {{task.id}}</p>
-                <p>Title : {{task.title}}</p>
+                <p><span class="caption">Task ID : </span> {{task.id}}</p>
+                <p><span class="caption">Title :</span> {{task.title}}</p>
                 <!-- <p>Description : {{task.description}}</p> -->
-                <p>Status : {{task.status}}</p>
+                <!-- <p><span class="caption">Description :</span> {{task.description}}</p> -->
+                <p><span class="caption">Status when deleted: </span>{{task.status}}</p>
           </div>
           <div>
             <button class="restore" (click)="restoreTask(task)">Restore</button>

@@ -59,3 +59,9 @@
   .custom{
     background-color: rgb(245, 120, 48);
   }
+  
+  .menu{
+    width: 16px;
+    padding: .25rem;
+    color: red;
+  }

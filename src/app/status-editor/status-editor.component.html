@@ -1,0 +1,38 @@
+<app-header></app-header>
+<div class="min-h-screen bg-gray-100 flex flex-col m-4">
+      <h1 class="text-4xl font-bold mb-4 text-center">Status Editor</h1>
+
+      <div class="border border-black p-4 border-b-2 rounded">
+        <div class="flex flex-col">
+            <label for="taskID" class="block text-gray-700 text-sm font-bold mb-2">Status ID <span>(fixed)</span></label>
+            <textarea disabled  class="w-full bg-gray-200 rounded px-3 py-2" 
+            name="taskID" id="taskID" cols="30" rows="1">{{statusID}}</textarea>
+          </div>
+          <!-- Task Title -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Task Title</label>
+            <input type="text" placeholder="Title" class="w-full bg-gray-200 rounded px-3 py-2"
+               [(ngModel)]="statusName" (focus)="isChanged = true" >
+          </div>
+      
+          <!-- Task Description -->
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+            <textarea placeholder="Description" class="w-full h-48 bg-gray-200 rounded px-3 py-2"
+                 [(ngModel)] = "statusDesc" (focus)="isChanged = true"></textarea>
+                 <!-- <p>{{taskDesc}}</p> -->
+          </div>
+      
+      
+          <!-- Update and Delete Buttons -->
+          <div class="flex flex-col justify-between md:flex-row ">
+            <div   class="flex flex-col justify-between md:flex-row "> 
+              <button (click)="navToDashBoard()"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2 md:mx-4">Go To DashBoard</button>           
+              <button (click)="updateStatus()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-2 md:mx-4">Update</button>
+              <button (click)="deleteStatus()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded my-2 md:mx-4">Delete</button>
+            </div>
+          </div>
+      </div>
+
+  </div>
+  

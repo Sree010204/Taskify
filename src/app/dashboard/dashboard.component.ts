@@ -3,7 +3,8 @@ import { Task } from '../task.interface';
 import { Router } from '@angular/router';
 import { TaskData } from '../TaskData.interface';
 import { Status } from '../Status.interface';
-
+import { MatMenuModule } from '@angular/material/menu';
+import { DialogService } from '../dialog.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,7 +28,7 @@ export class DashboardComponent {
   statusList : Status[] = [];
   taskNameMap = new Map();
 
-  constructor(private router:Router){
+  constructor(private router:Router,private dservice:DialogService){
     this.taskList = [
       { id : 1,title: "Guide Me", description: "Project A", status: "To-Do" },
       { id : 2,title: "To Do Task", description: "Project A", status: "To-Do" },
@@ -118,7 +119,7 @@ addTask(statusID:number,inputTask :string){
   let logData = localStorage.getItem('taskLog');
   if(logData){
     this.taskLogData = JSON.parse(logData);
-    this.taskLogData.push({id:this.taskID,title:taskTitle,message:' is added'+new Date(),action:'added'});
+    this.taskLogData.push({id:this.taskID,title:taskTitle,status:status,message:' is added on '+this.dservice.getDateAndTime(),action:'added'});
     localStorage.setItem('taskLog',JSON.stringify(this.taskLogData));
   }
   this.taskID++;
@@ -173,5 +174,14 @@ getClass(id:number){
     default : return 'custom';
   }
 }
+
+editStatus(status:Status){
+  console.log("in dash");
+  console.log(status.id);
+  console.log("fin  das");
+  this.router.navigate(['/status-editor'],{queryParams:{data:status.id}});
+}
+
+
  
 }

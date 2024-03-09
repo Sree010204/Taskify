@@ -22,4 +22,12 @@ export class DialogService {
       height:'fit-content'
     })
   }
+
+  getDateAndTime(){
+    // Get current date and time
+let currentDate = new Date();
+// Format date and time
+let formattedDate = `${currentDate.getHours()}:${currentDate.getMinutes()} (${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()})`;
+return formattedDate;
+  }
 }

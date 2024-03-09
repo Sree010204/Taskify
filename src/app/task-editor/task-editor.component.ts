@@ -108,7 +108,7 @@ export class TaskEditorComponent implements OnInit{
      if(logData != null){
      this.taskLog = JSON.parse(logData);
      console.log(typeof this.taskLog);
-     this.taskLog.push({id:this.taskID,title:this.taskTitle,message:' is ' + action+" on  "+new Date(),action:action});
+     this.taskLog.push({id:this.taskID,title:this.taskTitle,status:this.taskStatus,message:' is ' + action+" on  "+this.dialogService.getDateAndTime(),action:action});
      localStorage.setItem('taskLog',JSON.stringify(this.taskLog));
      }
   }

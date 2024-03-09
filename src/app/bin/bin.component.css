@@ -20,3 +20,6 @@ button{
 .delete{
     background-color: rgb(163, 12, 12);
 }
+.caption{
+    font-weight: 600;
+}

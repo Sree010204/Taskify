@@ -22,6 +22,9 @@ import { TaskLogComponent } from './task-log/task-log.component';
 import { BinComponent } from './bin/bin.component';
 import { NewStatusComponent } from './new-status/new-status.component';
 import { SaveDialogComponent } from './save-dialog/save-dialog.component'
+import { MatMenuModule } from '@angular/material/menu';
+import { StatusEditorComponent } from './status-editor/status-editor.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,12 +35,14 @@ import { SaveDialogComponent } from './save-dialog/save-dialog.component'
     TaskLogComponent,
     BinComponent,
     NewStatusComponent,
-    SaveDialogComponent
+    SaveDialogComponent,
+    StatusEditorComponent
   ],
   imports: [
     MatIconModule,
     MatButtonModule,
     MatInputModule,
+    MatMenuModule,
     MatDialogModule,
     BrowserModule,
     AppRoutingModule,

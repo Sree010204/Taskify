@@ -6,7 +6,24 @@
   <div class="grid grid-cols-1 md:grid-cols-3">
    <div  *ngFor="let status of statusList">
     <div class="column" (dragover)="onDragOver($event)" (drop) = "onDrop($event,status.name)">
-      <div class="card-title" [ngClass]="getClass(status.id)" ><span>{{status.name+" "}}</span>{{"("+(filterList(status.name).length)+")"}}</div>
+      <div class="flex justify-between">
+        <div class="card-title" [ngClass]="getClass(status.id)" ><span>{{status.name+" "}}</span>{{"("+(filterList(status.name).length)+")"}}</div>
+        <div class="icon-menu">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_horiz</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" class="menu">
+            <button mat-menu-item (click)="editStatus(status)">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <!-- <button mat-menu-item (click)="deleteStatus(status)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button> -->
+          </mat-menu>
+        </div>
+      </div>
       <div draggable="true" *ngFor="let task of filterList(status.name)" class="card" (dragstart) ="onDragStart(task)"
                (click)="navigate(task)" >{{task.title}}</div>
       <!-- <div class="card add-card" (click)="addTask($event,'To-Do')" contenteditable="true">+ New</div> -->
@@ -25,3 +42,8 @@
   </div>
   
 </div>
+
+
+
+
+

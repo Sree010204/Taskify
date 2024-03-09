@@ -5,6 +5,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { TaskLogComponent } from './task-log/task-log.component';
 import { BinComponent } from './bin/bin.component';
 import { NewStatusComponent } from './new-status/new-status.component';
+import { StatusEditorComponent } from './status-editor/status-editor.component';
+
 
 const routes: Routes = [
   {path:'',component:DashboardComponent},
@@ -13,6 +15,7 @@ const routes: Routes = [
   {path:'tasklog',component:TaskLogComponent},
   {path:'bin',component:BinComponent},
   {path:'new-status',component:NewStatusComponent},
+  {path:'status-editor',component:StatusEditorComponent},
 ];
 
 @NgModule({

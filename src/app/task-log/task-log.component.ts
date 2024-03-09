@@ -26,6 +26,7 @@ export class TaskLogComponent implements OnInit {
       case 'updated' : return 'updated';
       case 'deleted' : return 'deleted';
       case 'added' : return 'added';
+      case 'permDeleted' : return 'permDel'
       default :return 'default';
     }
   }

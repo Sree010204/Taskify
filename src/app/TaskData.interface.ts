@@ -1,7 +1,7 @@
 export interface TaskData{
     id:number;
     title:string;
-    action:string;
+    status:string;
     message:string;
-
+    action:string;
 }

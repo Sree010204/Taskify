@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../task.interface';
 import { Status } from '../Status.interface';
 import { DialogService } from '../dialog.service';
+import { TaskData } from '../TaskData.interface';
+
 
 @Component({
   selector: 'app-bin',
@@ -12,7 +14,7 @@ export class BinComponent implements OnInit{
   deletedTasks : Task[] = [];
   taskList : Task[] = [];
   statusList : Status[] = [];
-
+  tasksLog : TaskData[] = [];
   constructor(private dservice:DialogService){}
 
   ngOnInit(): void {
@@ -23,6 +25,7 @@ export class BinComponent implements OnInit{
   }
 
   deleteTask(task:Task){
+    this.updateTaskLog(task,'permDeleted','is PERMANENTLY deleted on ');
     this.dservice.openDialogBox().afterClosed().subscribe(response => {
       if(response == 'true'){
         this.deletedTasks = this.deletedTasks.filter((t) => t.id !== task.id); 
@@ -31,7 +34,9 @@ export class BinComponent implements OnInit{
     })
    
   }
+  
   restoreTask(task:Task){
+    this.updateTaskLog(task,'restored','is restored on ');
     let status = task.status;
     let tasksData = localStorage.getItem('tasks');
 
@@ -48,7 +53,6 @@ export class BinComponent implements OnInit{
             localStorage.setItem('statusList',JSON.stringify(this.statusList));
             statusID++;
             localStorage.setItem('statusID',JSON.stringify(statusID));
-          
         }
       }
      
@@ -64,5 +68,18 @@ export class BinComponent implements OnInit{
     // remove task from deltedTask list
     this.deletedTasks = this.deletedTasks.filter((t) => t.id !== task.id); 
     localStorage.setItem('deletedTasks',JSON.stringify(this.deletedTasks));
+  }
+
+  updateTaskLog(task:Task,action:string,message:string){
+
+    let logData = localStorage.getItem('taskLog');
+    console.log(logData);
+    if(logData != null){
+      console.log("takss log is not null");
+      this.tasksLog = JSON.parse(logData);
+      // this.tasksLog.push({id:task.id,})
+      this.tasksLog.push({id:task.id,title:task.title,status:task.status,message:message +" "+this.dservice.getDateAndTime()+" ",action:action});
+      localStorage.setItem('taskLog',JSON.stringify(this.tasksLog));
+    }
   }
 }
