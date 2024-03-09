@@ -6,3 +6,6 @@
     color: red;
     font-weight: 300;
 }
+button:disabled{
+    background-color: rgb(158, 216, 173);
+}

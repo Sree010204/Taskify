@@ -1,8 +1,22 @@
 .card{
     width: 100%;
-    background-color: rgb(220, 78, 83);
-    color: white;
+    background-color: rgb(238, 231, 24);
+    color: black;
     margin: .25rem;
     border-radius: .25rem;
     padding: .5rem;
+}
+
+button{
+    background-color: rgb(60, 168, 204);
+    color: white;
+    margin: .5rem;
+    border-radius: .25rem;
+    padding: .5rem;
+}
+.restore{
+    background-color: rgba(22, 118, 3, 0.881);
+}
+.delete{
+    background-color: rgb(163, 12, 12);
 }

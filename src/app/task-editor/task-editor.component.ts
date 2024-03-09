@@ -71,6 +71,7 @@ export class TaskEditorComponent implements OnInit{
     toastMsg += '<br> <b>' + this.taskTitle +"</b> is updated succesfully";
     this.toastr.success(toastMsg,'Success ',{timeOut:3000,easeTime:500,positionClass:'toast-top-right',enableHtml:true});
     this.addTaskToLogData('updated');
+    this.isChanged = false;
   //  alert(this.statusList.length+" "+localStorage.getItem('stausList')?.length);
 
   }

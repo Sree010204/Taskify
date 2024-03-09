@@ -165,6 +165,13 @@ addTask(statusID:number,inputTask :string){
   console.log("hrllo");
  }
 
- taskInput(id:any){}
+getClass(id:number){
+  switch(id){
+    case 0 : return 'todo';
+    case 1 : return 'progress';
+    case 2 : return 'completed';
+    default : return 'custom';
+  }
+}
  
 }

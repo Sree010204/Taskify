@@ -4,11 +4,17 @@
         <h1 class="text-2xl bg-red-300 text-center font-bold">Bin</h1>
     </div>
     <div>
-        <div *ngFor="let task of deletedTasks" class="card">
-            <p>Task ID : {{task.id}}</p>
-            <p>Title : {{task.title}}</p>
-            <!-- <p>Description : {{task.description}}</p> -->
-            <p>Status : {{task.status}}</p>
+        <div *ngFor="let task of deletedTasks" class="card flex flex-col md:flex-row justify-between">
+          <div>
+                <p>Task ID : {{task.id}}</p>
+                <p>Title : {{task.title}}</p>
+                <!-- <p>Description : {{task.description}}</p> -->
+                <p>Status : {{task.status}}</p>
+          </div>
+          <div>
+            <button class="restore" (click)="restoreTask(task)">Restore</button>
+            <button class="delete" (click)="deleteTask(task)">Delete Permanently</button>
+          </div>
         </div>
     </div>
 </div>

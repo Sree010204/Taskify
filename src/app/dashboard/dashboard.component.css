@@ -21,6 +21,8 @@
   .card-title {
     font-weight: bold;
     margin-bottom: .5rem;
+    border-radius: .25rem;
+    padding: .5rem;
   }
   
   .card {
@@ -44,4 +46,16 @@
 
   button{
     border-radius: .25rem;
+  }
+  .todo{
+    background-color: rgb(243, 129, 129);
+  }
+  .progress{
+    background-color: rgb(221, 241, 73);
+  }
+  .completed{
+    background-color: rgb(101, 236, 83);
+  }
+  .custom{
+    background-color: rgb(245, 120, 48);
   }
