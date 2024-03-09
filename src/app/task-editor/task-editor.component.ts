@@ -22,6 +22,8 @@ export class TaskEditorComponent implements OnInit{
   taskLog : TaskData[] =[];
   action : string = '';
   statusList : Status[] = [];
+  userMaessagg : string =  'Save Your Edits Now?';
+  isChanged : boolean = false;
 
   constructor(private actRoute:ActivatedRoute,
               private toastr:ToastrService,
@@ -73,9 +75,6 @@ export class TaskEditorComponent implements OnInit{
 
   }
 
-  navToDashBoard(){
-    this.router.navigate(['/dashboard']);
-  }
 
   deleteTask(){
     this.dialogService.openDialogBox().afterClosed().subscribe(response => {
@@ -95,7 +94,7 @@ export class TaskEditorComponent implements OnInit{
         this.taskList =this.taskList.filter(item => item.id !== this.taskID);
         localStorage.setItem('tasks',JSON.stringify(this.taskList));
         this.toastr.error('Task <b>' +this.taskTitle+' </b>Moved To Bin','Task '+this.taskID+' Deleted ',{timeOut:3000,easeTime:500,positionClass:'toast-top-right',enableHtml:true});
-        this.navToDashBoard();
+        this.router.navigate(['/dashboard']);
         this.addTaskToLogData('deleted');
 
       }
@@ -112,5 +111,35 @@ export class TaskEditorComponent implements OnInit{
      localStorage.setItem('taskLog',JSON.stringify(this.taskLog));
      }
   }
+
+  navToNewFeature(){
+    if(this.isChanged){
+      this.dialogService.openSaveDialog().afterClosed().subscribe(response => {
+        if(response == 'true'){
+          // console.log("inside true block");
+          this.updateTask();
+        }
+        this.router.navigate(['/new-status']);
+      });
+    }
+    else{
+      this.router.navigate(['/new-status']);
+    }    
+  }
+
+  navToDashBoard(){
+   if(this.isChanged){
+    this.dialogService.openSaveDialog().afterClosed().subscribe(response => {
+      if(response == 'true'){
+        this.updateTask();
+      }
+      this.router.navigate(['/dashboard']);
+      
+    });
+  }
+  else{
+    this.router.navigate(['/dashboard']);
+  }
+   }
   
 }

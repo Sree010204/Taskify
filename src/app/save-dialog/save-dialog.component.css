@@ -1,0 +1,14 @@
+.title{
+    font-size: x-large;
+    font-weight: 500;
+    color: red;
+}
+
+.yes{
+    background: lightgreen;
+    color: white;
+}
+.no{
+    background: red;
+    color: white;
+}

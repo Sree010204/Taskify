@@ -30,9 +30,17 @@ export class NewStatusComponent implements OnInit{
   }
 
   submit() {
+    this.checkAvailability();
+    if(!this.isAvailable){
+      this.isAvailable = false;
+      return ;
+    }
     this.statusList.push({id:this.statusID,name:this.statusName,description:this.description});
     this.statusID++;
     localStorage.setItem('statusList',JSON.stringify(this.statusList));
+    localStorage.setItem('statusID',JSON.stringify(this.statusID));
+    this.statusName = '';
+    this.description = '';
   }
 
   reset() {

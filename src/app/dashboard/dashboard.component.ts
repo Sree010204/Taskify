@@ -81,20 +81,8 @@ export class DashboardComponent {
     }
 
  }
-resetText(str:string){
-  // this.addTask();
-  // this.blurTimeOut = setTimeout(() => {
-  //   if(str == 'todo'){
-  //     this.todoText = '';
-  //   }
-  //   else if(str == 'progress'){
-  //     this.progText = '';
-  //   }
-  //   if(str == 'completed'){
-  //     this.compText = '';
-  //   }
-  // },4000);
-  console.log("reset");
+resetTask(statusID:number,inputTask:string){
+  this.taskNameMap.set(statusID,'');
 }
 
 addTask(statusID:number,inputTask :string){

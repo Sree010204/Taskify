@@ -12,7 +12,7 @@
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Task Title</label>
             <input type="text" placeholder="Title" class="w-full bg-gray-200 rounded px-3 py-2"
-               [(ngModel)]="taskTitle" >
+               [(ngModel)]="taskTitle" (focus)="isChanged = true" >
                <p>{{taskTitle}}</p>
           </div>
       
@@ -20,26 +20,31 @@
           <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
             <textarea placeholder="Description" class="w-full h-48 bg-gray-200 rounded px-3 py-2"
-                 [(ngModel)] = "taskDesc"></textarea>
+                 [(ngModel)] = "taskDesc" (focus)="isChanged = true"></textarea>
                  <!-- <p>{{taskDesc}}</p> -->
           </div>
       
           <!-- Task Status -->
           <div class="mb-4">
             <!-- <p>status are {{statusList}}</p> -->
-            <p>{{taskStatus}}</p>
+            <!-- <p>{{taskStatus}}</p> -->
             <label class="block text-gray-700 text-sm font-bold mb-2">Status</label>
-            <select class="w-2/3 bg-gray-200 rounded px-3 py-2" [(ngModel)] = "taskStatus" >
+            <select class="w-2/3 bg-gray-200 rounded px-3 py-2" [(ngModel)] = "taskStatus" (focus)="isChanged = true">
               <option *ngFor="let status of statusList" [value]="status.name">{{status.name}}</option>
 
             </select>
           </div>
       
           <!-- Update and Delete Buttons -->
-          <div class="flex justify-between">
-            <button (click)="navToDashBoard()"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Go To DashBoard</button>
-            <button (click)="updateTask()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Update</button>
-            <button (click)="deleteTask()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+          <div class="flex flex-col justify-between md:flex-row ">
+            <div   class="flex flex-col justify-between md:flex-row "> 
+              <button (click)="navToDashBoard()"  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2 md:mx-4">Go To DashBoard</button>
+              <button (click)="navToNewFeature()"  class="bg-pink-500 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded my-2 md:mx-4">Add New Status</button>
+            </div>
+            <div  class="flex flex-col justify-between md:flex-row ">
+              <button (click)="updateTask()" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded my-2 md:mx-4">Update</button>
+              <button (click)="deleteTask()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded my-2 md:mx-4">Delete</button>
+            </div>
           </div>
       </div>
 

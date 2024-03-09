@@ -20,7 +20,8 @@ import {MatDialogModule } from '@angular/material/dialog';
 import { HeaderComponent } from './header/header.component';
 import { TaskLogComponent } from './task-log/task-log.component';
 import { BinComponent } from './bin/bin.component';
-import { NewStatusComponent } from './new-status/new-status.component'
+import { NewStatusComponent } from './new-status/new-status.component';
+import { SaveDialogComponent } from './save-dialog/save-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +31,8 @@ import { NewStatusComponent } from './new-status/new-status.component'
     HeaderComponent,
     TaskLogComponent,
     BinComponent,
-    NewStatusComponent
+    NewStatusComponent,
+    SaveDialogComponent
   ],
   imports: [
     MatIconModule,
