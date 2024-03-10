@@ -7,7 +7,7 @@ import { TaskEditorComponent } from './task-editor/task-editor.component';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { HashLocationStrategy, LocationStrategy  } from '@angular/common';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -52,7 +52,7 @@ import { StatusEditorComponent } from './status-editor/status-editor.component';
     BrowserAnimationsModule,
     CommonModule,
   ],
-  providers: [],
+  providers: [{provide:LocationStrategy,useClass:HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
